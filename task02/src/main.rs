@@ -20,7 +20,6 @@ impl Particle {
     }
 }
 
-
 ///  collision between a circle and plane
 fn collision_circle_plane(
     pos: &mut Vec2f,
@@ -55,9 +54,18 @@ fn collide_particle_ball(
     p.pos -= height * 2. * plane_norm;
     ////////////////////////
     // write some code
+    // relative velocity along the normal (v1 - v2)
+    let v_rel = (p.velo - *ball_velo).dot(&plane_norm);
+    if v_rel > 0. {
+        return;
+    }
+    // v1 - v2 = (v2 + J/m2) - (v1 + J/m1)
+    let impulse = 2. * v_rel / (1. / particle_mass + 1. / ball_mass);
 
+    *ball_velo += impulse / ball_mass * plane_norm;
+    p.velo -= impulse / particle_mass * plane_norm;
     // comment out the line below.
-    p.velo -= 2f32 * (p.velo - *ball_velo).dot(&plane_norm) * plane_norm;
+    // p.velo -= 2f32 * (p.velo - *ball_velo).dot(&plane_norm) * plane_norm;
 
     // *ball_velo +=
     // p.velo -=
@@ -65,7 +73,6 @@ fn collide_particle_ball(
     // no edit from here
     ////////////////////////
 }
-
 
 ///  collision between a circle and box boundary
 fn collision_against_aabb2(pos: &mut Vec2f, radius: f32, velo: &mut Vec2f, aabb2: &[f32; 4]) {
@@ -151,7 +158,7 @@ fn main() -> anyhow::Result<()> {
         1.,
     ];
 
-    let mut ball_trajectory: Vec<[f32;2]> = vec!();
+    let mut ball_trajectory: Vec<[f32; 2]> = vec![];
     let dt = 0.05;
     for _i_frame in 0..200 {
         ball_pos += ball_velo * dt; // step time for ball
