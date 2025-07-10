@@ -37,7 +37,7 @@ public class MyRigidBody : MonoBehaviour
             // ----------------
             // write a few line of code below to update the angular velocity at the reference configuration `omega` using forward time integration
             float3 L = math.mul(inertia_tensor, omega);
-            omega -= math.mul(-math.inverse(inertia_tensor), math.cross(omega, L)) * timeStep;
+            omega += math.mul(-math.inverse(inertia_tensor), math.cross(omega, L)) * timeStep;
             // end of edit
             // ----------------
         }
