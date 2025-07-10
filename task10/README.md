@@ -102,9 +102,9 @@ Write the inertia tensor below.
 
 |   | 0 | 1 | 2 |
 |---|---|---|---|
-| 0 | ? | ? | ? |
-| 1 | ? | ? | ? |
-| 2 | ? | ? | ? |
+| 0 | 4.392608 | 1.490116E-07 | 0.03670155 |
+| 1 | 1.490116E-07 | 26.72796 | 7.843981E-08 |
+| 2 | 0.03670144 | 8.854624E-08 | 28.45263 |
 
 Note that the inertia tensor is symmetric.   
 
@@ -115,7 +115,7 @@ Write down the energy and angular momentum value at the 300th frame shown in the
 
 | energy at 300th frame | angular momentum at 300th frame |
 |-----------------------|---------------------------------|
-| ???                   | ???                             |
+|       14.14303        |      (-0.04, 27.49, 0.59)       |
 
 Note that the both energy and angular momentum does not change very much during this simulation (the energy keep increasing gradually as we use forward Euler method in angular velocity update).
 
